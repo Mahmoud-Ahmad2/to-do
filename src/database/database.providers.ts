@@ -1,5 +1,9 @@
 import { Sequelize } from 'sequelize-typescript';
 import { User } from '../users/user.entity';
+import { todo } from '../todoData/todoData.entity';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 export const databaseProviders = [
   {
@@ -7,13 +11,16 @@ export const databaseProviders = [
     useFactory: async () => {
       const sequelize = new Sequelize({
         dialect: 'mysql',
+        define: {
+          timestamps: false,
+        },
         host: 'localhost',
         port: 3306,
         username: 'root',
-        password: 'm1231231',
+        password: process.env.MYSQL_PASSWORD,
         database: 'todo',
       });
-      sequelize.addModels([User]);
+      sequelize.addModels([User, todo]);
       return sequelize;
     },
   },
