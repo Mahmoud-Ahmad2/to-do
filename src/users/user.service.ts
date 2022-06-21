@@ -11,8 +11,6 @@ export class UserService {
     return await this.userRepository.findAll<User>();
   }
   async insert(email: string, password: string, name: string): Promise<User> {
-    console.log(email, password, name);
-
     return await this.userRepository.create({
       email,
       password,
