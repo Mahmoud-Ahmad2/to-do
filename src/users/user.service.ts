@@ -10,6 +10,11 @@ export class UserService {
   async findAll(): Promise<User[]> {
     return await this.userRepository.findAll<User>();
   }
+
+  async findOne(email: string): Promise<User> {
+    return await this.userRepository.findOne({ where: { email } });
+  }
+
   async insert(email: string, password: string, name: string): Promise<User> {
     return await this.userRepository.create({
       email,
