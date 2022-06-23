@@ -10,7 +10,7 @@ import {
   Delete,
   Param,
 } from '@nestjs/common';
-import { AuthGuard } from './todoData.guard';
+import { AuthGuard } from '../common/guard/todoData.guard';
 import { TodoDataService } from './todoData.service';
 
 @Controller('todoData')

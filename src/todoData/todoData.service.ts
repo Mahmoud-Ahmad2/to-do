@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { todoData } from './todoData.entity';
+import { todoData } from './todoData.model';
 
 @Injectable()
 export class TodoDataService {
