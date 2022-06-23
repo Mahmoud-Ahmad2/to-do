@@ -1,25 +1,6 @@
-import database from './configuration.development';
-import databaseProduction from './configuration.production';
-import databaseTest from './configuration.test';
-import * as dotenv from 'dotenv';
+import devConfig from './configuration.development';
+import prodConfig from './configuration.production';
 
-dotenv.config();
+const NODE_ENV = process.env.NODE_ENV || 'development';
 
-const { NODE_ENV } = process.env;
-let databaseConfig;
-switch (NODE_ENV) {
-  case 'development':
-    databaseConfig = database;
-    break;
-  case 'production':
-    databaseConfig = databaseProduction;
-    break;
-  case 'test':
-    console.log('test');
-
-    databaseConfig = databaseTest;
-    break;
-  default:
-    throw new Error('NODE_ENV is not set');
-}
-export { databaseConfig };
+export default NODE_ENV === 'test' ? devConfig : prodConfig;
