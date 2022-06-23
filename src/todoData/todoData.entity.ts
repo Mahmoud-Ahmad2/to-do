@@ -8,7 +8,7 @@ import {
 import { User } from 'src/users/user.entity';
 
 @Table
-export class todo extends Model {
+export class todoData extends Model {
   @PrimaryKey
   @Column
   id: number;
@@ -19,4 +19,10 @@ export class todo extends Model {
 
   @Column
   data: string;
+
+  @Column
+  createdAt: Date;
+
+  @Column
+  updatedAt: Date;
 }

@@ -7,10 +7,6 @@ export class UserService {
     @Inject('USER_REPOSITORY') private readonly userRepository: typeof User,
   ) {}
 
-  async findAll(): Promise<User[]> {
-    return await this.userRepository.findAll<User>();
-  }
-
   async findOne(email: string): Promise<User> {
     return await this.userRepository.findOne({ where: { email } });
   }
