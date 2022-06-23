@@ -1,6 +1,5 @@
-import { Body, Controller, Get, HttpException, Post } from '@nestjs/common';
+import { Body, Controller, HttpException, Post } from '@nestjs/common';
 import { UserService } from './user.service';
-import { User } from './user.entity';
 import { signupUserDto } from './signupUser.dto';
 import { loginDto } from './login.dto';
 import * as bcrypt from 'bcrypt';
@@ -10,10 +9,6 @@ import { createToken } from 'src/utils';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get()
-  async findAll(): Promise<User[]> {
-    return await this.userService.findAll();
-  }
   @Post('signup')
   async insert(@Body() dto: signupUserDto): Promise<object> {
     const email = await this.userService.findOne(dto.email);

@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
 import { User } from '../users/user.entity';
-import { todo } from '../todoData/todoData.entity';
+import { todoData } from '../todoData/todoData.entity';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -17,7 +17,7 @@ export const databaseProviders = [
         password: process.env.MYSQL_PASSWORD,
         database: 'todo',
       });
-      sequelize.addModels([User, todo]);
+      sequelize.addModels([User, todoData]);
       return sequelize;
     },
   },
