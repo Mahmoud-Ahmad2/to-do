@@ -4,25 +4,27 @@ import {
   ExecutionContext,
   HttpException,
   UnauthorizedException,
-  Request,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { verifyToken } from 'src/utils';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  async validateRequest(req: Request): Promise<boolean> {
+  canActivate(
+    context: ExecutionContext,
+  ): boolean | Promise<boolean> | Observable<boolean> {
+    const request = context.switchToHttp().getRequest();
     try {
-      const { token }: any = req.headers;
-
+      const { token } = request.headers;
       if (!token) {
         throw new HttpException('Please Login first', 401);
       }
-      const verify: any = await verifyToken(token);
 
-      const { id }: { id: number } = verify;
+      const verify = verifyToken(token);
+      const { id } = verify as any;
+
       if (id) {
-        req['userId'] = id;
+        request.userId = id;
         return true;
       }
 
@@ -30,11 +32,5 @@ export class AuthGuard implements CanActivate {
     } catch (error) {
       throw new UnauthorizedException();
     }
-  }
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
-    const request = context.switchToHttp().getRequest();
-    return this.validateRequest(request);
   }
 }
